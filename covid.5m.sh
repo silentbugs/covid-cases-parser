@@ -30,8 +30,8 @@ GREEN="$(tput setaf 2)"
 today=$(date +%d-%m-%Y)
 yesterday=$(date -v-1d +%d-%m-%Y)
 
-today_cases=$(getCovidCases $today | tr "\n" " ")
-yesterday_cases=$(getCovidCases $yesterday | tr "\n" " ")
+today_cases=$(getCovidCases $today)
+yesterday_cases=$(getCovidCases $yesterday)
 
 if [[ ! -z "$today_cases" ]]
 then
