@@ -28,14 +28,14 @@ RED="$(tput setaf 1)"
 GREEN="$(tput setaf 2)"
 
 today=$(date +%d-%m-%Y)
-yesterday=$(date -v-1d +%d-%m-%Y)
-
 today_cases=$(getCovidCases $today)
-yesterday_cases=$(getCovidCases $yesterday)
 
 if [[ ! -z "$today_cases" ]]
 then
 	echo "${GREEN}$today_cases | size=12 color=#00ff00"
 else
+	# only fetch yesterday's cases if today's are not available
+	yesterday=$(date -v-1d +%d-%m-%Y)
+	yesterday_cases=$(getCovidCases $yesterday)
 	echo "${RED}$yesterday_cases | size=12 color=#ff3333"
 fi
