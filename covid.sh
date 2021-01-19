@@ -1,5 +1,4 @@
 #!/bin/bash
-TERM=/usr/bin/screen
 
 # pass date as argument, in dd-mm-YYY format, e.g. 15-07-2020
 function getCovidCases() {
