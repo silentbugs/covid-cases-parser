@@ -33,5 +33,6 @@ else
 	# only fetch yesterday's cases if today's are not available
 	yesterday=$(date -v-1d +%d-%m-%Y)
 	yesterday_cases=$(getCovidCases $yesterday)
+
 	echo "$yesterday_cases | size=12 color=#ff3333"
 fi
