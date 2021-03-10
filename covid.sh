@@ -13,6 +13,7 @@ function getCovidCases() {
 	# 9. ΘαΣ - Θάνατοι σύνολο
 	curl -s http://www.odigostoupoliti.eu/koronoios-krousmata-simera-$1-stin-ellada/ \
 		| xmllint --html --xpath '//div[contains(@class, "entry-content")]/table//tr[2]' 2>/dev/null - \
+		| grep -v 'text-align' \
 		| sed 's/<strong>//g' \
 		| sed 's/<\/strong>//g' \
 		| sed 's/<tr>//g' \
