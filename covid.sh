@@ -27,7 +27,9 @@ function getCovidCases() {
 today=$(date +%d-%m-%Y)
 today_cases=$(getCovidCases $today)
 
-if [[ ! -z "$today_cases" ]]
+# check if input contains any numbers
+# response contains weird ascii characters so we cannot test -z for an empty response
+if [[ $today_cases =~ [0-9] ]]
 then
 	echo "$today_cases | size=12 color=#00ff00"
 else
