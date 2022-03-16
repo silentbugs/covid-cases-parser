@@ -11,7 +11,7 @@ function getCovidCases() {
 	# 7. ΔΜ - Διασωληνωμένοι ΜΕΘ
 	# 8. ΘαΗ - Θάνατοι ημέρας
 	# 9. ΘαΣ - Θάνατοι σύνολο
-	curl -s http://www.odigostoupoliti.eu/koronoios-krousmata-simera-$1-stin-ellada/ \
+	curl -s http://www.odigostoupoliti.eu/koronoios-krousmata-simera-stin-ellada-$1/ \
 		| xmllint --html --xpath '//div[contains(@class, "entry-content")]/table//tr[2]' 2>/dev/null - \
 		| grep -v 'text-align' \
 		| sed 's/<strong>//g' \
