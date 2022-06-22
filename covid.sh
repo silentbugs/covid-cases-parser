@@ -24,6 +24,12 @@ function getCovidCases() {
 		| awk 'BEGIN{FS=" "} {print $2,$4,$6,$7,$8}'
 }
 
+function printResults() {
+	echo "covid | color=$2"
+	echo "---"
+	echo "$1 | size=12"
+}
+
 today=$(date +%d-%m-%Y)
 today_cases=$(getCovidCases $today)
 
@@ -31,11 +37,13 @@ today_cases=$(getCovidCases $today)
 # response contains weird ascii characters so we cannot test -z for an empty response
 if [[ $today_cases =~ [0-9] ]]
 then
-	echo "$today_cases | size=12 color=#00ff00"
+	color="#44ff44"
+	printResults "$today_cases" "$color"
 else
 	# only fetch yesterday's cases if today's are not available
 	yesterday=$(date -v-1d +%d-%m-%Y)
 	yesterday_cases=$(getCovidCases $yesterday)
 
-	echo "$yesterday_cases | size=12 color=#ff3333"
+	color="#ff4444"
+	printResults "$yesterday_cases" "$color"
 fi
