@@ -57,9 +57,16 @@ function printResults() {
 today=$(date +%d-%m-%Y)
 today_cases=$(getCovidCases $today)
 
+
 # check if input contains any numbers
 # response contains weird ascii characters so we cannot test -z for an empty response
-if [[ $today_cases =~ [0-9] ]]
+
+# Substitute the date as an empty string because the website creates the "date" entry without any
+# data before having the actual data.
+# So we test for numbers apart from the date part
+today_cases_without_date=$(echo $today_cases | sed "s/$today//g")
+
+if [[ $today_cases_without_date =~ [0-9] ]]
 then
 	color="#44ff44"
 	printResults "$today_cases" "$color"
