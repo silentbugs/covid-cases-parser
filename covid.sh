@@ -71,9 +71,23 @@ then
 	color="#44ff44"
 	printResults "$today_cases" "$color"
 else
-	# only fetch yesterday's cases if today's are not available
-	yesterday=$(date -v-1d +%d-%m-%Y)
-	yesterday_cases=$(getCovidCases $yesterday)
+	days=1
+	while [[ ! $yesterday_cases_without_date =~ [0-9] ]];
+	do
+		date_flags="-v-$days""d"
+		# only fetch yesterday's cases if today's are not available
+		yesterday=$(date $date_flags +%d-%m-%Y)
+		yesterday_cases=$(getCovidCases $yesterday)
+		yesterday_cases_without_date=$(echo $yesterday_cases | sed "s/$yesterday//g")
+
+		# maximum one week back
+		if [[ $days -ge 7 ]]; then
+			break
+		fi
+
+		# increment days and continue the loop
+		days=$(( $days + 1 ))
+	done
 
 	color="#ff4444"
 	printResults "$yesterday_cases" "$color"
